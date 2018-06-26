@@ -43,6 +43,9 @@ class IqiyiDataSet(object):
                         print(count)
                         cv2.imwrite(os.path.join(self.train_data_path, "train/%s" % int(label), "train_%s.jpg" % count), face)
                         count += 1
+                    else:
+                        break
+
         with open(self.val_label_path) as f:
             for i in f:
                 video_name, label = i.split(" ")
@@ -61,6 +64,8 @@ class IqiyiDataSet(object):
                         print(count)
                         cv2.imwrite(os.path.join(self.train_data_path, "train/%s" % int(label), "val_%s.jpg" % count), face)
                         count += 1
+                    else:
+                        break
 
 
 if __name__ == "__main__":
