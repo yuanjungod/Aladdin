@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import os
 import cv2
 import face_recognition
@@ -38,11 +37,11 @@ class IqiyiDataSet(object):
                         face = self.detect_face(frame)
                         if face is None:
                             continue
-                        if not os.path.exists(os.path.join(self.train_data_path, "train/%s" % label)):
-                            print(os.path.join(self.train_data_path, "train/%s" % label))
-                            os.mkdir(os.path.join(self.train_data_path, "train/%s" % label))
+                        if not os.path.exists(os.path.join(self.train_data_path, "train/%s" % int(label))):
+                            print(os.path.join(self.train_data_path, "train/%s" % int(label)))
+                            os.mkdir(os.path.join(self.train_data_path, "train/%s" % int(label)))
                         print(count)
-                        cv2.imwrite(os.path.join(self.train_data_path, "train/%s" % label, "train_%s.jpg" % count), face)
+                        cv2.imwrite(os.path.join(self.train_data_path, "train/%s" % int(label), "train_%s.jpg" % count), face)
                         count += 1
         with open(self.val_label_path) as f:
             for i in f:
@@ -56,11 +55,11 @@ class IqiyiDataSet(object):
                         face = self.detect_face(frame)
                         if face is None:
                             continue
-                        if not os.path.exists(os.path.join(self.train_data_path, "train", label)):
-                            print(os.path.join(self.train_data_path, "train", label))
-                            os.mkdir(os.path.join(self.train_data_path, "train", label))
+                        if not os.path.exists(os.path.join(self.train_data_path, "train/%s" % int(label))):
+                            print(os.path.join(self.train_data_path, "train/%s" % int(label)))
+                            os.mkdir(os.path.join(self.train_data_path, "train/%s" % int(label)))
                         print(count)
-                        cv2.imwrite(os.path.join(self.train_data_path, "train", label, "val_%s.jpg" % count), face)
+                        cv2.imwrite(os.path.join(self.train_data_path, "train/%s" % int(label), "val_%s.jpg" % count), face)
                         count += 1
 
 
