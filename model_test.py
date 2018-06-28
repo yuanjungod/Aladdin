@@ -34,7 +34,7 @@ while True:
             continue
         total_count += 1
         print(face_recognition.face_distance(face_encodings1, face_encodings2[0]))
-        if face_recognition.face_distance(face_encodings2, face_encodings2[0])[0] < 0.6:
+        if face_recognition.face_distance(face_encodings2, face_encodings2[0])[0] < 0.4:
             right_count += 1
 
     elif left != right:
@@ -59,7 +59,7 @@ while True:
             continue
         total_count += 1
         print(face_recognition.face_distance(face_encodings1, face_encodings2[0]))
-        if face_recognition.face_distance(face_encodings1, face_encodings2[0])[0] >= 0.6:
+        if face_recognition.face_distance(face_encodings1, face_encodings2[0])[0] >= 0.4:
             right_count += 1
     print(total_count, right_count, (right_count*1.0)/total_count)
     print("#####################################################################################")
