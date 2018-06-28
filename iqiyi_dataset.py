@@ -15,8 +15,8 @@ class IqiyiDataSet(object):
         self.train_data_path = train_data_path
 
     def detect_face(self, image):
-        # face_locations = face_recognition.face_locations(image, self.number_of_times_to_upsample, model="cnn")
-        face_locations = face_recognition.face_locations(image, self.number_of_times_to_upsample)
+        face_locations = face_recognition.face_locations(image, self.number_of_times_to_upsample, model="cnn")
+        # face_locations = face_recognition.face_locations(image, self.number_of_times_to_upsample)
         print(face_locations)
         if len(face_locations) == 1:
             return image[face_locations[0][0]: face_locations[0][2], face_locations[0][3]: face_locations[0][1]]
@@ -43,6 +43,8 @@ class IqiyiDataSet(object):
                         print(count)
                         cv2.imwrite(os.path.join(self.train_data_path, "train/%s" % int(label), "train_%s.jpg" % count), face)
                         count += 1
+                    else:
+                        break
         with open(self.val_label_path) as f:
             for i in f:
                 video_name, label = i.split(" ")
@@ -61,10 +63,12 @@ class IqiyiDataSet(object):
                         print(count)
                         cv2.imwrite(os.path.join(self.train_data_path, "train/%s" % int(label), "val_%s.jpg" % count), face)
                         count += 1
+                    else:
+                        break
 
 
 if __name__ == "__main__":
-    iqiyi_dataset = IqiyiDataSet("/Users/happy/Downloads/IQIYI_VID_DATA_Part1", "/Users/happy/Downloads/train_data")
+    iqiyi_dataset = IqiyiDataSet("/alidata/home/yuanjun/data/IQIYI_VID_DATA_Part1", "/alidata/home/yuanjun/data/train_data")
     iqiyi_dataset.create_train_data()
     # cap = cv2.VideoCapture(0)
     # count = 0
