@@ -14,7 +14,8 @@ while True:
     if random.random() > 0.6:
         right = left
     if left == right:
-        print("same people")
+        if total_count % 30 == 0:
+            print("same people")
         pic1 = os.path.join(date_root, left, random.choice(os.listdir(os.path.join(date_root, left))))
         pic2 = os.path.join(date_root, right, random.choice(os.listdir(os.path.join(date_root, right))))
 
@@ -33,12 +34,14 @@ while True:
         if len(face_encodings1) == 0 or len(face_encodings2) == 0:
             continue
         total_count += 1
-        print(face_recognition.face_distance(face_encodings1, face_encodings2[0]))
+        if total_count % 30 == 0:
+            print(face_recognition.face_distance(face_encodings1, face_encodings2[0]))
         if face_recognition.face_distance(face_encodings2, face_encodings2[0])[0] < 0.4:
             right_count += 1
 
     elif left != right:
-        print("different people")
+        if total_count % 30 == 0:
+            print("different people")
         pic1 = os.path.join(date_root, left, random.choice(os.listdir(os.path.join(date_root, left))))
         pic2 = os.path.join(date_root, right, random.choice(os.listdir(os.path.join(date_root, right))))
         pic1_image = cv2.imread(pic1)
@@ -58,11 +61,13 @@ while True:
         if len(face_encodings1) == 0 or len(face_encodings2) == 0:
             continue
         total_count += 1
-        print(face_recognition.face_distance(face_encodings1, face_encodings2[0]))
+        if total_count % 30 == 0:
+            print(face_recognition.face_distance(face_encodings1, face_encodings2[0]))
         if face_recognition.face_distance(face_encodings1, face_encodings2[0])[0] >= 0.4:
             right_count += 1
-    print(total_count, right_count, (right_count*1.0)/total_count)
-    print("#####################################################################################")
+    if total_count % 30 == 0:
+        print(total_count, right_count, (right_count*1.0)/total_count)
+        print("#####################################################################################")
 
 
 
