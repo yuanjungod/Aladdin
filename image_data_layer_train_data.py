@@ -3,7 +3,7 @@ import random
 
 root_folder = "/alidata/home/yuanjun/data/train_data/train/"
 
-train_txt = open("train.txt")
+train_txt = open("train.txt", "w+")
 image_folders = os.listdir(root_folder)
 count = 0
 while True:
