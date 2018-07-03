@@ -11,9 +11,8 @@ while True:
 
     left = random.choice(face_dir_list)
     right = random.choice(face_dir_list)
-    if random.random() > 0.6:
-        right = left
     if left == right:
+        continue      
         if total_count % 30 == 0:
             print("same people")
         pic1 = os.path.join(date_root, left, random.choice(os.listdir(os.path.join(date_root, left))))
@@ -36,7 +35,7 @@ while True:
         total_count += 1
         if total_count % 30 == 0:
             print(face_recognition.face_distance(face_encodings1, face_encodings2[0]))
-        if face_recognition.face_distance(face_encodings2, face_encodings2[0])[0] < 0.4:
+        if face_recognition.face_distance(face_encodings1, face_encodings2[0])[0] < 0.4:
             right_count += 1
 
     elif left != right:
