@@ -174,21 +174,7 @@ def read_labels(labels_file):
     return labels
 
 
-def get_face_feature(caffemodel, deploy_file, image_files,
-                     mean_file=None, labels_file=None, batch_size=None, use_gpu=False):
-    """
-        Classify some images against a Caffe model and print the results
-
-        Arguments:
-        caffemodel -- path to a .caffemodel
-        deploy_file -- path to a .prototxt
-        image_files -- list of paths to images
-
-        Keyword arguments:
-        mean_file -- path to a .binaryproto
-        labels_file path to a .txt file
-        use_gpu -- if True, run inference on the GPU
-        """
+def get_face_net(caffemodel, deploy_file, mean_file=None, use_gpu=False):
     # Load the model and images
     net = get_net(caffemodel, deploy_file, use_gpu)
     transformer = get_transformer(deploy_file, mean_file)
@@ -199,12 +185,24 @@ def get_face_feature(caffemodel, deploy_file, image_files,
         mode = 'L'
     else:
         raise ValueError('Invalid number for channels: %s' % channels)
-    images = [load_image(image_file, height, width, mode) for image_file in image_files]
-    labels = read_labels(labels_file)
+    # images = [load_image(image_file, height, width, mode) for image_file in image_files]
+    # labels = read_labels(labels_file)
+    return net, transformer
 
     # Classify the image
-    scores = forward_pass(images, net, transformer, batch_size=batch_size)
-    print(scores)
+    # scores = forward_pass(images, net, transformer, batch_size=batch_size)
+    # print(scores)
+
+
+def get_distance(net, transformer, image_file1, image_file2):
+    _, channels, height, width = transformer.inputs['data']
+    image1 = load_image(image_file1, height, width, 'RGB')
+    image2 = load_image(image_file2, height, width, 'RGB')
+    start = time.time()
+    scores1 = forward_pass(image1, net, transformer, batch_size=1)
+    scores2 = forward_pass(image2, net, transformer, batch_size=1)
+    print("need time: %s" % ((time.time()-start)/2.0))
+    return np.linalg.norm(scores1 - scores2, axis=1)
 
 
 def classify(caffemodel, deploy_file, image_files,
@@ -262,29 +260,31 @@ def classify(caffemodel, deploy_file, image_files,
 
 
 if __name__ == '__main__':
-    script_start_time = time.time()
-
-    parser = argparse.ArgumentParser(description='Classification example - DIGITS')
-
-    # Positional arguments
-    parser.add_argument('caffemodel', help='Path to a .caffemodel')
-    parser.add_argument('deploy_file', help='Path to the deploy file')
-    parser.add_argument('image_file', nargs='+', help='Path[s] to an image')
-
-    # Optional arguments
-    parser.add_argument('-m', '--mean', help='Path to a mean file (*.npy)')
-    parser.add_argument('--batch-size', type=int)
-    parser.add_argument('--nogpu', action='store_true', help="Don't use the GPU")
-
-    args = vars(parser.parse_args())
-
-    get_face_feature(
-        args['caffemodel'],
-        args['deploy_file'],
-        args['image_file'],
-        args['mean'],
-        args['batch_size'],
-        not args['nogpu'],
-    )
-
-    print('Script took %f seconds.' % (time.time() - script_start_time,))
+    # script_start_time = time.time()
+    #
+    # parser = argparse.ArgumentParser(description='Classification example - DIGITS')
+    #
+    # # Positional arguments
+    # parser.add_argument('caffemodel', help='Path to a .caffemodel')
+    # parser.add_argument('deploy_file', help='Path to the deploy file')
+    # parser.add_argument('image_file', nargs='+', help='Path[s] to an image')
+    #
+    # # Optional arguments
+    # parser.add_argument('-m', '--mean', help='Path to a mean file (*.npy)')
+    # parser.add_argument('--batch-size', type=int)
+    # parser.add_argument('--nogpu', action='store_true', help="Don't use the GPU")
+    #
+    # args = vars(parser.parse_args())
+    #
+    # get_face_feature(
+    #     args['caffemodel'],
+    #     args['deploy_file'],
+    #     args['image_file'],
+    #     args['mean'],
+    #     args['batch_size'],
+    #     not args['nogpu'],
+    # )
+    caffemodel = "../model/snapshot/solver_iter_39000.caffemodel"
+    deploy_file = "deploy.prototxt"
+    mean_file = "/alidata/home/yuanjun/code/DIGITS/digits/jobs/20180627-090625-7b5b/mean.binaryproto"
+    net, transformer = get_face_net(caffemodel, deploy_file, mean_file, False)
