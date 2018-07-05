@@ -273,7 +273,6 @@ if __name__ == '__main__':
 
     # Optional arguments
     parser.add_argument('-m', '--mean', help='Path to a mean file (*.npy)')
-    parser.add_argument('-l', '--labels', help='Path to a labels file')
     parser.add_argument('--batch-size', type=int)
     parser.add_argument('--nogpu', action='store_true', help="Don't use the GPU")
 
@@ -284,7 +283,6 @@ if __name__ == '__main__':
         args['deploy_file'],
         args['image_file'],
         args['mean'],
-        args['labels'],
         args['batch_size'],
         not args['nogpu'],
     )
