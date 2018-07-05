@@ -45,10 +45,6 @@ class IqiyiDataSet(object):
                         count += 1
                     else:
                         break
-<<<<<<< HEAD
-=======
-
->>>>>>> 9572bb75acd7f9ea2311bc6cfe9637351d7c17c2
         with open(self.val_label_path) as f:
             for i in f:
                 video_name, label = i.split(" ")
