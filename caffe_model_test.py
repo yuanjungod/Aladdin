@@ -3,7 +3,7 @@ import random
 import cv2
 from inferrence import *
 
-date_root = "/Users/happy/Downloads/train_data/train"
+date_root = "/alidata/home/yuanjun/data/train_data/train"
 face_dir_list = os.listdir(date_root)
 total_count = 1
 right_count = 1
