@@ -57,6 +57,7 @@ def val_data():
             break
     val_txt.close()
 
+
 train_data()
 val_data()
 

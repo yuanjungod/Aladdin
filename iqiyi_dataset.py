@@ -15,8 +15,8 @@ class IqiyiDataSet(object):
         self.train_data_path = train_data_path
 
     def detect_face(self, image):
-        # face_locations = face_recognition.face_locations(image, self.number_of_times_to_upsample, model="cnn")
-        face_locations = face_recognition.face_locations(image, self.number_of_times_to_upsample)
+        face_locations = face_recognition.face_locations(image, self.number_of_times_to_upsample, model="cnn")
+        # face_locations = face_recognition.face_locations(image, self.number_of_times_to_upsample)
         print(face_locations)
         if len(face_locations) == 1:
             return image[face_locations[0][0]: face_locations[0][2], face_locations[0][3]: face_locations[0][1]]
@@ -70,17 +70,26 @@ class IqiyiDataSet(object):
 
 if __name__ == "__main__":
     iqiyi_dataset = IqiyiDataSet("/Users/happy/Downloads/IQIYI_VID_DATA_Part1", "/Users/happy/Downloads/train_data")
-    iqiyi_dataset.create_train_data()
-    # cap = cv2.VideoCapture(0)
-    # count = 0
-    # while True:
-    #     ret, frame = cap.read()
-    #     face = iqiyi_dataset.detect_face(frame)
-    #     if face is None:
-    #         continue
-    #     cv2.imshow("me", face)
-    #     if cv2.waitKey(1) & 0xFF == ord('q'):
-    #         break
+    # iqiyi_dataset.create_train_data()
+    cap = cv2.VideoCapture(0)
+    count = 0
+    while True:
+        ret, frame = cap.read()
+        print(frame.shape)
+        frame = cv2.resize(frame, (128*5, 72*5))
+        print(frame.shape)
+        cv2.imshow("origin", frame)
+        face = iqiyi_dataset.detect_face(frame)
+
+        if face is None:
+            continue
+        print(face.shape)
+        cv2.imshow("me", face)
+        face = cv2.resize(face, (224, 224))
+        cv2.imwrite("%s.jpg" % count, face)
+        count += 1
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
 
 
 
