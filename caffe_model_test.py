@@ -23,10 +23,10 @@ while True:
         pic2 = os.path.join(date_root, right, random.choice(os.listdir(os.path.join(date_root, right))))
 
         distance = get_distance(net, transformer, pic1, pic2)
-        total_count += 1
         same_people_count += 1
         if total_count % 30 == 0:
             print(distance)
+        total_count += 1
         if distance <= 0.9:
             right_count += 1
             same_people_right_count += 1
@@ -37,10 +37,10 @@ while True:
         pic1 = os.path.join(date_root, left, random.choice(os.listdir(os.path.join(date_root, left))))
         pic2 = os.path.join(date_root, right, random.choice(os.listdir(os.path.join(date_root, right))))
         distance = get_distance(net, transformer, pic1, pic2)
-        total_count += 1
         diff_people_count += 1
         if total_count % 30 == 0:
             print(distance)
+        total_count += 1
         if distance > 0.9:
             right_count += 1
             diff_people_right_count += 1
