@@ -199,8 +199,8 @@ def get_distance(net, transformer, image_file1, image_file2):
     image1 = load_image(image_file1, height, width, 'RGB')
     image2 = load_image(image_file2, height, width, 'RGB')
     start = time.time()
-    scores1 = forward_pass(image1, net, transformer, batch_size=1)
-    scores2 = forward_pass(image2, net, transformer, batch_size=1)
+    scores1 = forward_pass([image1], net, transformer, batch_size=1)
+    scores2 = forward_pass([image2], net, transformer, batch_size=1)
     print("need time: %s" % ((time.time()-start)/2.0))
     return np.linalg.norm(scores1 - scores2, axis=1)
 
@@ -257,6 +257,12 @@ def classify(caffemodel, deploy_file, image_files,
         print('{:-^80}'.format(' Prediction for %s ' % image_files[index]))
         for label, confidence in classification:
             print('{:9.4%} - "{}"'.format(confidence / 100.0, label))
+
+
+caffemodel = "../model/snapshot/solver_iter_39000.caffemodel"
+deploy_file = "deploy.prototxt"
+mean_file = "/alidata/home/yuanjun/code/DIGITS/digits/jobs/20180627-090625-7b5b/mean.binaryproto"
+net, transformer = get_face_net(caffemodel, deploy_file, mean_file, False)
 
 
 if __name__ == '__main__':
