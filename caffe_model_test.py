@@ -27,7 +27,7 @@ while True:
         same_people_count += 1
         if total_count % 30 == 0:
             print(distance)
-        if distance <= 0.9:
+        if distance[0] <= 0.9:
             right_count += 1
             same_people_right_count += 1
 
@@ -41,7 +41,7 @@ while True:
         diff_people_count += 1
         if total_count % 30 == 0:
             print(distance)
-        if distance > 0.9:
+        if distance[0] > 0.9:
             right_count += 1
             diff_people_right_count += 1
     if total_count % 30 == 0:
