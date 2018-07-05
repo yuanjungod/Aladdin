@@ -148,7 +148,7 @@ def forward_pass(images, net, transformer, batch_size=None):
             scores = np.copy(output)
         else:
             scores = np.vstack((scores, output))
-        print('Processed %s/%s images in %f seconds ...' % (len(scores), len(caffe_images), (end - start)))
+        # print('Processed %s/%s images in %f seconds ...' % (len(scores), len(caffe_images), (end - start)))
 
     return scores
 
@@ -201,7 +201,7 @@ def get_distance(net, transformer, image_file1, image_file2):
     start = time.time()
     scores1 = forward_pass([image1], net, transformer, batch_size=1)
     scores2 = forward_pass([image2], net, transformer, batch_size=1)
-    print("need time: %s" % ((time.time()-start)/2.0))
+    # print("need time: %s" % ((time.time()-start)/2.0))
     return np.linalg.norm(scores1 - scores2, axis=1)
 
 
