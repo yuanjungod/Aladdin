@@ -259,10 +259,10 @@ def classify(caffemodel, deploy_file, image_files,
             print('{:9.4%} - "{}"'.format(confidence / 100.0, label))
 
 
-caffemodel = "../model/snapshot/solver_iter_45000.caffemodel"
+caffemodel = "../model/snapshot/solver_iter_49767.caffemodel"
 deploy_file = "deploy.prototxt"
 mean_file = "/alidata/home/yuanjun/code/DIGITS/digits/jobs/20180627-090625-7b5b/mean.binaryproto"
-net, transformer = get_face_net(caffemodel, deploy_file, mean_file, False)
+net, transformer = get_face_net(caffemodel, deploy_file, mean_file, True)
 
 
 if __name__ == '__main__':

@@ -45,7 +45,6 @@ class IqiyiDataSet(object):
                         count += 1
                     else:
                         break
-
         with open(self.val_label_path) as f:
             for i in f:
                 video_name, label = i.split(" ")
@@ -69,7 +68,18 @@ class IqiyiDataSet(object):
 
 
 if __name__ == "__main__":
-    iqiyi_dataset = IqiyiDataSet("/Users/happy/Downloads/IQIYI_VID_DATA_Part1", "/Users/happy/Downloads/train_data")
+    iqiyi_dataset = IqiyiDataSet("/alidata/home/yuanjun/data/IQIYI_VID_DATA_Part1", "/alidata/home/yuanjun/data/train_data")
+    iqiyi_dataset.create_train_data()
+    # cap = cv2.VideoCapture(0)
+    # count = 0
+    # while True:
+    #     ret, frame = cap.read()
+    #     face = iqiyi_dataset.detect_face(frame)
+    #     if face is None:
+    #         continue
+    #     cv2.imshow("me", face)
+    #     if cv2.waitKey(1) & 0xFF == ord('q'):
+    #         break
     # iqiyi_dataset.create_train_data()
     cap = cv2.VideoCapture(0)
     count = 0

@@ -3,7 +3,7 @@ import os
 import random
 import cv2
 
-date_root = "/Users/happy/Downloads/train_data/train"
+date_root = "/alidata/home/yuanjun/data/train_data/train"
 face_dir_list = os.listdir(date_root)
 total_count = 0
 right_count = 0
@@ -11,9 +11,8 @@ while True:
 
     left = random.choice(face_dir_list)
     right = random.choice(face_dir_list)
-    if random.random() > 0.6:
-        right = left
     if left == right:
+        continue      
         if total_count % 30 == 0:
             print("same people")
         pic1 = os.path.join(date_root, left, random.choice(os.listdir(os.path.join(date_root, left))))

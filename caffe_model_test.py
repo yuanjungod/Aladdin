@@ -3,7 +3,7 @@ import random
 import cv2
 from inferrence import *
 
-date_root = "/Users/happy/Downloads/train_data/train"
+date_root = "/alidata/home/yuanjun/data/train_data/train"
 face_dir_list = os.listdir(date_root)
 total_count = 1
 right_count = 1
@@ -24,10 +24,10 @@ while True:
 
         distance = get_distance(net, transformer, pic1, pic2)
         same_people_count += 1
+        total_count += 1
         if total_count % 30 == 0:
             print(distance)
-        total_count += 1
-        if distance <= 0.9:
+        if distance <= 0.6:
             right_count += 1
             same_people_right_count += 1
 
@@ -38,10 +38,10 @@ while True:
         pic2 = os.path.join(date_root, right, random.choice(os.listdir(os.path.join(date_root, right))))
         distance = get_distance(net, transformer, pic1, pic2)
         diff_people_count += 1
+        total_count += 1
         if total_count % 30 == 0:
             print(distance)
-        total_count += 1
-        if distance > 0.9:
+        if distance > 1.0:
             right_count += 1
             diff_people_right_count += 1
     if total_count % 30 == 0:
