@@ -45,13 +45,13 @@ while True:
 
         print("true positive rate: %s" % ((1.0*true_positive)/(true_positive+false_positive)))
         print("false positive rate: %s" % ((1.0*false_positive)/(true_positive+false_positive)))
-        print("positive recall: %s" % 1.0*true_positive/positive)
+        print("positive recall: %s" % (1.0*true_positive/positive))
 
         print("#################################################################################")
 
         print("true negative rate: %s" % ((1.0*true_negative)/(true_negative+false_negative)))
         print("false negative rate: %s" % ((1.0*false_negative)/(true_negative+false_negative)))
-        print("negative recall: %s" % 1.0*true_negative/negative)
+        print("negative recall: %s" % (1.0*true_negative/negative))
 
 
 
