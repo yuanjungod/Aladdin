@@ -80,6 +80,26 @@ if __name__ == "__main__":
     #     cv2.imshow("me", face)
     #     if cv2.waitKey(1) & 0xFF == ord('q'):
     #         break
+    # iqiyi_dataset.create_train_data()
+    cap = cv2.VideoCapture(0)
+    count = 0
+    while True:
+        ret, frame = cap.read()
+        print(frame.shape)
+        frame = cv2.resize(frame, (128*5, 72*5))
+        print(frame.shape)
+        cv2.imshow("origin", frame)
+        face = iqiyi_dataset.detect_face(frame)
+
+        if face is None:
+            continue
+        print(face.shape)
+        cv2.imshow("me", face)
+        face = cv2.resize(face, (224, 224))
+        cv2.imwrite("%s.jpg" % count, face)
+        count += 1
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
 
 
 
