@@ -57,18 +57,18 @@ class IqiyiDataSet(object):
                         face = self.detect_face(frame)
                         if face is None:
                             continue
-                        if not os.path.exists(os.path.join(self.train_data_path, "train/%s" % int(label))):
-                            print(os.path.join(self.train_data_path, "train/%s" % int(label)))
-                            os.mkdir(os.path.join(self.train_data_path, "train/%s" % int(label)))
+                        if not os.path.exists(os.path.join(self.train_data_path, "train_val/%s" % int(label))):
+                            print(os.path.join(self.train_data_path, "train_val/%s" % int(label)))
+                            os.mkdir(os.path.join(self.train_data_path, "train_val/%s" % int(label)))
                         print(count)
-                        cv2.imwrite(os.path.join(self.train_data_path, "train/%s" % int(label), "val_%s.jpg" % count), face)
+                        cv2.imwrite(os.path.join(self.train_data_path, "train_val/%s" % int(label), "val_%s.jpg" % count), face)
                         count += 1
                     else:
                         break
 
 
 if __name__ == "__main__":
-    iqiyi_dataset = IqiyiDataSet("/alidata/home/yuanjun/data/IQIYI_VID_DATA_Part1", "/alidata/home/yuanjun/data/train_data")
+    iqiyi_dataset = IqiyiDataSet("/alidata/home/yuanjun/data/IQIYI_VID_DATA_Part2", "/alidata/home/yuanjun/data/train_data")
     iqiyi_dataset.create_train_data()
     # cap = cv2.VideoCapture(0)
     # count = 0

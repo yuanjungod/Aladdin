@@ -42,7 +42,7 @@ while True:
             true_negative += 1
 
     if positive > 0 and negative > 0 and (positive+negative) % 100 == 0:
-
+        print("#################################################################################")
         print("true positive rate: %s" % ((1.0*true_positive)/(true_positive+false_positive)))
         print("false positive rate: %s" % ((1.0*false_positive)/(true_positive+false_positive)))
         print("positive recall: %s" % (1.0*true_positive/positive))
