@@ -27,7 +27,7 @@ class IqiyiDataSet(object):
             os.mkdir(os.path.join(self.train_data_path, "train"))
         with open(self.train_label_path) as f:
             for i in f:
-                video_name, label = i.split(" ")
+                video_name, label = i.split("  ")
                 print(os.path.join(self.train_image_fold, video_name), label)
                 cap = cv2.VideoCapture(os.path.join(self.train_image_fold, video_name))
                 count = 0
