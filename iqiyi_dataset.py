@@ -1,6 +1,7 @@
 import os
 import cv2
 import face_recognition
+import time
 
 
 class IqiyiDataSet(object):
@@ -30,7 +31,7 @@ class IqiyiDataSet(object):
                 video_name, label = i.split("  ")
                 print(os.path.join(self.train_image_fold, video_name), label)
                 cap = cv2.VideoCapture(os.path.join(self.train_image_fold, video_name))
-                count = 0
+                # count = time.time()
                 while True:
                     ret, frame = cap.read()
                     if frame is not None:
@@ -40,9 +41,9 @@ class IqiyiDataSet(object):
                         if not os.path.exists(os.path.join(self.train_data_path, "train/%s" % int(label))):
                             print(os.path.join(self.train_data_path, "train/%s" % int(label)))
                             os.mkdir(os.path.join(self.train_data_path, "train/%s" % int(label)))
-                        print(count)
+                        count = time.time()
                         cv2.imwrite(os.path.join(self.train_data_path, "train/%s" % int(label), "train_%s.jpg" % count), face)
-                        count += 1
+                        # count += 1
                     else:
                         break
         with open(self.val_label_path) as f:
@@ -52,7 +53,6 @@ class IqiyiDataSet(object):
                 for video_name in video_name_list:
                     print(os.path.join(self.train_image_fold, video_name), label)
                     cap = cv2.VideoCapture(os.path.join(self.val_image_fold, video_name))
-                    count = 0
                     while True:
                         ret, frame = cap.read()
                         if frame is not None:
@@ -62,9 +62,8 @@ class IqiyiDataSet(object):
                             if not os.path.exists(os.path.join(self.train_data_path, "train_val/%s" % int(label))):
                                 print(os.path.join(self.train_data_path, "train_val/%s" % int(label)))
                                 os.mkdir(os.path.join(self.train_data_path, "train_val/%s" % int(label)))
-                            print(count)
+                            count = time.time()
                             cv2.imwrite(os.path.join(self.train_data_path, "train_val/%s" % int(label), "val_%s.jpg" % count), face)
-                            count += 1
                         else:
                             break
 
