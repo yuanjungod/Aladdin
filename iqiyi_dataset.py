@@ -47,24 +47,26 @@ class IqiyiDataSet(object):
                         break
         with open(self.val_label_path) as f:
             for i in f:
-                video_name, label = i.split(" ")
-                print(os.path.join(self.train_image_fold, video_name), label)
-                cap = cv2.VideoCapture(os.path.join(self.val_image_fold, video_name))
-                count = 0
-                while True:
-                    ret, frame = cap.read()
-                    if frame is not None:
-                        face = self.detect_face(frame)
-                        if face is None:
-                            continue
-                        if not os.path.exists(os.path.join(self.train_data_path, "train_val/%s" % int(label))):
-                            print(os.path.join(self.train_data_path, "train_val/%s" % int(label)))
-                            os.mkdir(os.path.join(self.train_data_path, "train_val/%s" % int(label)))
-                        print(count)
-                        cv2.imwrite(os.path.join(self.train_data_path, "train_val/%s" % int(label), "val_%s.jpg" % count), face)
-                        count += 1
-                    else:
-                        break
+                label = i.split(" ")[0]
+                video_name_list = i.split(" ")[1:]
+                for video_name in video_name_list:
+                    print(os.path.join(self.train_image_fold, video_name), label)
+                    cap = cv2.VideoCapture(os.path.join(self.val_image_fold, video_name))
+                    count = 0
+                    while True:
+                        ret, frame = cap.read()
+                        if frame is not None:
+                            face = self.detect_face(frame)
+                            if face is None:
+                                continue
+                            if not os.path.exists(os.path.join(self.train_data_path, "train_val/%s" % int(label))):
+                                print(os.path.join(self.train_data_path, "train_val/%s" % int(label)))
+                                os.mkdir(os.path.join(self.train_data_path, "train_val/%s" % int(label)))
+                            print(count)
+                            cv2.imwrite(os.path.join(self.train_data_path, "train_val/%s" % int(label), "val_%s.jpg" % count), face)
+                            count += 1
+                        else:
+                            break
 
 
 if __name__ == "__main__":
