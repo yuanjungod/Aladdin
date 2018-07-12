@@ -31,7 +31,7 @@ class IqiyiDataSet(object):
                 video_name, label = i.split("  ")
                 print(os.path.join(self.train_image_fold, video_name), label)
                 cap = cv2.VideoCapture(os.path.join(self.train_image_fold, video_name))
-                # count = time.time()
+                count = 0
                 while True:
                     ret, frame = cap.read()
                     if frame is not None:
@@ -41,9 +41,15 @@ class IqiyiDataSet(object):
                         if not os.path.exists(os.path.join(self.train_data_path, "train/%s" % int(label))):
                             print(os.path.join(self.train_data_path, "train/%s" % int(label)))
                             os.mkdir(os.path.join(self.train_data_path, "train/%s" % int(label)))
-                        count = time.time()
-                        cv2.imwrite(os.path.join(self.train_data_path, "train/%s" % int(label), "train_%s.jpg" % count), face)
-                        # count += 1
+                        # count = time.time()
+                        cv2.imwrite(os.path.join(self.train_data_path, "train/%s" % int(label),
+                                                 "train_%s-%s.jpg" % (video_name, count)), face)
+                        count += 1
+                        for i in range(8):
+                            ret, frame = cap.read()
+                            if frame is None:
+                                break
+
                     else:
                         break
         with open(self.val_label_path) as f:
@@ -51,10 +57,15 @@ class IqiyiDataSet(object):
                 label = i.split(" ")[0]
                 video_name_list = i.split(" ")[1:]
                 for video_name in video_name_list:
-                    print(os.path.join(self.train_image_fold, video_name), label)
+                    print(os.path.join(self.val_image_fold, video_name), label)
                     cap = cv2.VideoCapture(os.path.join(self.val_image_fold, video_name))
+                    count = 0
                     while True:
-                        ret, frame = cap.read()
+                        frame = None
+                        for i in range(5):
+                            ret, frame = cap.read()
+                            if frame is None:
+                                break
                         if frame is not None:
                             face = self.detect_face(frame)
                             if face is None:
@@ -62,14 +73,21 @@ class IqiyiDataSet(object):
                             if not os.path.exists(os.path.join(self.train_data_path, "train_val/%s" % int(label))):
                                 print(os.path.join(self.train_data_path, "train_val/%s" % int(label)))
                                 os.mkdir(os.path.join(self.train_data_path, "train_val/%s" % int(label)))
-                            count = time.time()
-                            cv2.imwrite(os.path.join(self.train_data_path, "train_val/%s" % int(label), "val_%s.jpg" % count), face)
+                            # count = time.time()
+                            cv2.imwrite(os.path.join(self.train_data_path, "train_val/%s" % int(label),
+                                                     "val_%s-%s.jpg" % (video_name, count)), face)
+                            count += 1
+                            count += 1
+                            for i in range(8):
+                                ret, frame = cap.read()
+                                if frame is None:
+                                    break
                         else:
                             break
 
 
 if __name__ == "__main__":
-    iqiyi_dataset = IqiyiDataSet("/alidata/home/yuanjun/data/IQIYI_VID_DATA_Part2", "/alidata/home/yuanjun/data/train_data")
+    iqiyi_dataset = IqiyiDataSet("/alidata/home/yuanjun/data/IQIYI_VID_DATA_Part2", "/alidata/home/yuanjun/data/train_data2")
     iqiyi_dataset.create_train_data()
     # cap = cv2.VideoCapture(0)
     # count = 0
@@ -82,25 +100,25 @@ if __name__ == "__main__":
     #     if cv2.waitKey(1) & 0xFF == ord('q'):
     #         break
     # iqiyi_dataset.create_train_data()
-    cap = cv2.VideoCapture(0)
-    count = 0
-    while True:
-        ret, frame = cap.read()
-        print(frame.shape)
-        frame = cv2.resize(frame, (128*5, 72*5))
-        print(frame.shape)
-        cv2.imshow("origin", frame)
-        face = iqiyi_dataset.detect_face(frame)
-
-        if face is None:
-            continue
-        print(face.shape)
-        cv2.imshow("me", face)
-        face = cv2.resize(face, (224, 224))
-        cv2.imwrite("%s.jpg" % count, face)
-        count += 1
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+    # cap = cv2.VideoCapture(0)
+    # count = 0
+    # while True:
+    #     ret, frame = cap.read()
+    #     print(frame.shape)
+    #     frame = cv2.resize(frame, (128*5, 72*5))
+    #     print(frame.shape)
+    #     cv2.imshow("origin", frame)
+    #     face = iqiyi_dataset.detect_face(frame)
+    #
+    #     if face is None:
+    #         continue
+    #     print(face.shape)
+    #     cv2.imshow("me", face)
+    #     face = cv2.resize(face, (224, 224))
+    #     cv2.imwrite("%s.jpg" % count, face)
+    #     count += 1
+    #     if cv2.waitKey(1) & 0xFF == ord('q'):
+    #         break
 
 
 
