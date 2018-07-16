@@ -61,11 +61,7 @@ class IqiyiDataSet(object):
                     cap = cv2.VideoCapture(os.path.join(self.val_image_fold, video_name))
                     count = 0
                     while True:
-                        frame = None
-                        for i in range(5):
-                            ret, frame = cap.read()
-                            if frame is None:
-                                break
+                        ret, frame = cap.read()
                         if frame is not None:
                             face = self.detect_face(frame)
                             if face is None:
@@ -76,7 +72,6 @@ class IqiyiDataSet(object):
                             # count = time.time()
                             cv2.imwrite(os.path.join(self.train_data_path, "train_val/%s" % int(label),
                                                      "val_%s-%s.jpg" % (video_name, count)), face)
-                            count += 1
                             count += 1
                             for i in range(8):
                                 ret, frame = cap.read()
