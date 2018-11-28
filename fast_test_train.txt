@@ -1,0 +1,40 @@
+来 一份 凉面  	__label__点餐
+来 一份 乌冬面  	__label__点餐
+整 一份 牛肉面  	__label__点餐
+我要 牛肉面  	__label__点餐
+整碗 白酒  	__label__点餐
+加碗 白酒  	__label__点餐
+鱼香肉丝  	__label__点餐
+牛肉面  	__label__点餐
+不要 牛肉面 了  	__label__退菜
+不整 牛肉面 了  	__label__退菜
+老板 埋单  	__label__结账
+服务员 结账  	__label__结账
+老板娘 结账  	__label__结账
+老板 结账  	__label__结账
+三角型寿司  	__label__点餐
+不要 三角型寿司  	__label__退菜
+ABCD汤  	__label__点餐
+不要 ABCD汤  	__label__退菜
+ABC汤  	__label__点餐
+不要 ABC汤  	__label__退菜
+BBQ三明治  	__label__点餐
+不要 BBQ三明治  	__label__退菜
+BBQ排骨  	__label__点餐
+不要 BBQ排骨  	__label__退菜
+BBQ松蘑鸡胸  	__label__点餐
+不要 BBQ松蘑鸡胸  	__label__退菜
+BBQ烤美国牛肋骨  	__label__点餐
+不要 BBQ烤美国牛肋骨  	__label__退菜
+BBQ烤翅  	__label__点餐
+不要 BBQ烤翅  	__label__退菜
+老板 埋单  	__label__结账
+服务员 结账  	__label__结账
+老板娘 结账  	__label__结账
+老板 结账  	__label__结账
+三角型寿司  	__label__点餐
+不要 三角型寿司  	__label__退菜
+ABCD汤  	__label__点餐
+不要 ABCD汤  	__label__退菜
+ABC汤  	__label__点餐
+不要 ABC汤  	__label__退菜
